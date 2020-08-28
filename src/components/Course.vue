@@ -72,7 +72,10 @@ export default {
     handleClick(index) {
       console.log("jal", index);
       console.log("this.props", this.$router);
-      this.$router.push({ name: "course-detail", params: { id: index } });
+      this.$router.push({
+        name: "course-detail",
+        params: { publicId: index, id: 123 },
+      });
     },
   },
 };

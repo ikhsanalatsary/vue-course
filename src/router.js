@@ -14,7 +14,7 @@ const routes = [
   { path: "/students", component: Student },
   { path: "/course", component: Course },
   {
-    path: "/course-detail/:id",
+    path: "/course-detail/:publicId",
     name: "course-detail",
     component: CourseDetail,
   },

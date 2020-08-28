@@ -1,5 +1,5 @@
 <template>
-  <vs-navbar class="nabarx" v-model="indexActive">
+  <vs-navbar class="nabarx" v-model="indexActive" active-text-color="#1F74FF">
     <div slot="title">
       <vs-navbar-title>Course</vs-navbar-title>
     </div>

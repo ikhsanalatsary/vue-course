@@ -16,6 +16,23 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+import faker from "faker";
+
+const GENERATE_DATA = gql`
+  mutation insertTeacher($objects: [teachers_insert_input!]!) {
+    insertTeacher(objects: $objects) {
+      affected_rows
+      returning {
+        id
+        name
+        publicId
+        birthday
+      }
+    }
+  }
+`;
+
 export default {
   name: "FormGenData",
   data() {
@@ -25,7 +42,34 @@ export default {
     };
   },
   methods: {
-    generate() {},
+    generate() {
+      console.log(this.id);
+      console.log(this.total);
+      /* eslint-disable radix */
+      let id = parseInt(this.id);
+      let total = parseInt(this.total);
+      if (isNaN(id) || isNaN(total)) {
+        alert("All inputs are required and must be a number");
+        return;
+      }
+      console.log(this.$apollo);
+      let objects = Array.from({ length: total }, (v, i) => ({
+        id: id + i,
+        name: faker.name.firstName() + " " + faker.name.lastName(),
+        birthday: faker.date.past(),
+      }));
+      this.$apollo.mutate({
+        mutation: GENERATE_DATA,
+        variables: {
+          objects,
+        },
+        update: (cache, { data: { insertTeacher } }) => {
+          // Read the data from our cache for this query.
+          // eslint-disable-next-line
+          console.log(insertTeacher);
+        },
+      });
+    },
   },
 };
 </script>

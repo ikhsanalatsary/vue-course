@@ -9,8 +9,14 @@ import "vuesax/dist/vuesax.css"; //Vuesax styles
 import "material-icons/iconfont/material-icons.css";
 import App from "./App.vue";
 import router from "./router";
+const moment = require("moment");
+require("moment/locale/id");
+console.log("sa", moment.locale());
 
-Vue.use(Vuesax).use(Plugin).use(VueApollo);
+Vue.use(Vuesax)
+  .use(Plugin)
+  .use(VueApollo)
+  .use(require("vue-moment"), { moment });
 
 Vue.config.productionTip = false;
 

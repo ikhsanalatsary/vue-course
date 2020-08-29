@@ -1,52 +1,91 @@
 <template lang="html">
-  <div>
-    <vs-table stripe :data="users">
-      <template #header>
-        <h3>
-          Users
-        </h3>
+  <vs-row vs-justify="center" vs-w="8">
+    <vs-col type="flex" vs-justify="center">
+    <form class="centerx labelx">
+      <vs-input label="Name" placeholder="Student full name" v-model="name"/>
+      <vs-input label="DOB" placeholder="Date of birth" v-model="birthday"/>
+      <vs-button color="primary" type="border">Save</vs-button>
+    </form>
+    </vs-col>
+    <vs-col>
+      <vs-table stripe :data="students.edges">
+        <template v-slot:header>
+          <h3>
+            Student
+          </h3>
+        </template>
+      <template v-slot:thead>
+        <vs-th>Name</vs-th>
+        <vs-th>Birthday</vs-th>
+        <vs-th>Nro</vs-th>
+        <vs-progress v-if="$apollo.queries.students.loading" indeterminate color="primary">primary</vs-progress>
       </template>
-      <template #thead>
-        <vs-th>
-          Email
-        </vs-th>
-        <vs-th>
-          Name
-        </vs-th>
-        <vs-th>
-          Website
-        </vs-th>
-        <vs-th>
-          Nro
-        </vs-th>
-      </template>
 
-      <template v-slot="{ data }">
-        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-          <vs-td :data="data[indextr].email">
-            {{ data[indextr].email }}
-          </vs-td>
+        <template v-slot:default="{data}">
+          <vs-tr :key="item.node.id" v-for="item in data">
+            <vs-td :data="item.node.name">{{item.node.name}}</vs-td>
 
-          <vs-td :data="data[indextr].username">
-            {{ data[indextr].name }}
-          </vs-td>
+            <vs-td :data="item.node.birthday">{{item.node.birthday || '-'}}</vs-td>
 
-          <vs-td :data="data[indextr].id">
-            {{ data[indextr].website }}
-          </vs-td>
-
-          <vs-td :data="data[indextr].id">
-            {{ data[indextr].id }}
-          </vs-td>
-        </vs-tr>
-      </template>
-    </vs-table>
-  </div>
+            <vs-td :data="item.node.publicId">{{item.node.publicId}}</vs-td>
+          </vs-tr>
+        </template>
+      </vs-table>
+      <vs-row vs-type="flex" vs-justify="center" vs-align="center" vs-w="12">  
+        <vs-button ref="loadableButton" class="vs-con-loading__container" type="border" v-if="students.pageInfo.hasNextPage" :disabled="$apollo.queries.students.loading" v-on:click="loadMore">Load more</vs-button>
+      </vs-row>
+    </vs-col>
+  </vs-row>
 </template>
 
 <script>
+import gql from "graphql-tag";
+
+let STUDENTS_CONNECTION = gql`
+  query Students($first: Int = 10, $after: String) {
+    students: students_connection(first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+      edges {
+        cursor
+        node {
+          birthday
+          id
+          name
+          publicId
+        }
+      }
+    }
+  }
+`;
 export default {
+  apollo: {
+    students: {
+      query: STUDENTS_CONNECTION,
+      variables() {
+        // Use vue reactive properties here
+        return {
+          first: this.first,
+          after: this.after
+        };
+      }
+    }
+  },
   data: () => ({
+    name: '',
+    birthday: '',
+    students: {
+      edges: [],
+      pageInfo: {}
+    },
+    first: 10,
+    after: null,
+    backgroundLoading: "primary",
+    colorLoading: "#fff",
     users: [
       {
         id: 1,
@@ -120,5 +159,60 @@ export default {
       },
     ],
   }),
+  methods: {
+    loadMore() {
+      let {
+        $apollo,
+        first,
+        $vs,
+        backgroundLoading,
+        colorLoading,
+        $refs
+      } = this;
+      let {
+        vm: {
+          students: { pageInfo }
+        }
+      } = $apollo;
+      console.log($apollo);
+      console.log($vs);
+      $vs.loading({
+        background: backgroundLoading,
+        color: colorLoading,
+        container: $refs.loadableButton.$el,
+        scale: 0.45
+      });
+      $apollo.queries.students.fetchMore({
+        variables: {
+          first,
+          after: pageInfo.endCursor
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          console.log("previousResult", previousResult);
+          console.log("fetchMoreResult", fetchMoreResult);
+          const newStudents = fetchMoreResult.students.edges;
+          const pageInfo = fetchMoreResult.students.pageInfo;
+
+          $vs.loading.close($refs.loadableButton.$el);
+
+          return {
+            students: {
+              __typename: previousResult.students.__typename,
+              // Merging the tag list
+              edges: [...previousResult.students.edges, ...newStudents],
+              pageInfo
+            }
+          };
+        }
+      });
+    }
+  }
 };
 </script>
+
+<style scoped>
+.labelx .vs-input {
+  margin: 10px;
+  display: inline-block;
+} 
+</style>

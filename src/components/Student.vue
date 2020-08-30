@@ -71,7 +71,11 @@ import faker from "faker";
 
 let STUDENTS_CONNECTION = gql`
   query Students($first: Int = 10, $after: String) {
-    students: students_connection(first: $first, after: $after) {
+    students: students_connection(
+      first: $first
+      after: $after
+      order_by: { createdAt: desc }
+    ) {
       pageInfo {
         endCursor
         hasNextPage
@@ -301,7 +305,7 @@ export default {
               __typename: "studentsEdge",
             };
             console.log("addStudent -> mergedData", mergedData);
-            data.students.edges.push(mergedData);
+            data.students.edges.unshift(mergedData);
             // Write our data back to the cache.
             store.writeQuery({ query: STUDENTS_CONNECTION, data });
           },

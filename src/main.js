@@ -11,7 +11,7 @@ import App from "./App.vue";
 import router from "./router";
 const moment = require("moment");
 require("moment/locale/id");
-console.log("sa", moment.locale());
+// console.log("sa", moment.locale());
 
 Vue.use(Vuesax)
   .use(Plugin)
@@ -22,7 +22,8 @@ Vue.config.productionTip = false;
 
 // Create an http link:
 const link = new HttpLink({
-  uri: "https://active-beagle-94.hasura.app/v1beta1/relay",
+  uri: "https://exploregraphql.ikhsan.dev/v1beta1/relay",
+  headers: { "x-hasura-admin-secret": "admin_graphql_ganteng" },
   fetch,
 });
 

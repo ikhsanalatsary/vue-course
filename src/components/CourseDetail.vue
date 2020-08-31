@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <vs-row vs-justify="center" class="course-row" vs-w="6">
+    <vs-row vs-justify="center" class="course-row" vs-w="8">
       <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="10">
         <vs-card>
           <div slot="header">

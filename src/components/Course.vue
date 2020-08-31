@@ -1,5 +1,5 @@
 <template>
-  <vs-row vs-justify="center" vs-w="8">
+  <vs-row vs-justify="center" vs-w="10">
     <vs-col
       type="flex"
       vs-justify="center"
@@ -127,5 +127,8 @@ export default {
 }
 .right {
   margin-left: 15px;
+}
+div p {
+  padding-bottom: 12px;
 }
 </style>

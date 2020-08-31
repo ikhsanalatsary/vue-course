@@ -12,9 +12,6 @@
     <vs-navbar-item index="2">
       <router-link to="/course">Course</router-link>
     </vs-navbar-item>
-    <vs-navbar-item index="3">
-      <router-link to="/generate">Generate</router-link>
-    </vs-navbar-item>
   </vs-navbar>
 </template>
 

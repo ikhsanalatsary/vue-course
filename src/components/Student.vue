@@ -13,7 +13,7 @@
           label="DOB"
           :danger="validationField.dob"
           danger-text="This field is required!"
-          placeholder="Date of birth"
+          placeholder="YYYY-MM-DD"
           v-model="birthday"
         />
         <vs-button color="primary" type="border" @click="addStudent"

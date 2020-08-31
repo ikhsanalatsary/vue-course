@@ -3,15 +3,27 @@
     vs-type="flex"
     vs-justify="center"
     vs-align="center"
-    vs-w="2"
+    vs-w="8"
     class="form-gen"
   >
-    <h2>Generate teacher</h2>
-    <vs-input placeholder="start from id" v-model="id" />
-    <vs-input placeholder="total record to be generated" v-model="total" />
-    <vs-button color="primary" type="border" v-on:click="generate" icon="save"
-      >Generate</vs-button
-    >
+    <vs-row vs-type="flex" vs-justify="center">
+      <h2>Generate teacher</h2>
+    </vs-row>
+    <vs-row vs-type="flex" vs-justify="center">
+      <vs-input label="Entity" placeholder="Entity name" v-model="entity" />
+    </vs-row>
+    <vs-row vs-type="flex" vs-justify="center">
+      <vs-input
+        label="Total"
+        placeholder="total record to be generated"
+        v-model="total"
+      />
+    </vs-row>
+    <vs-row vs-type="flex" vs-justify="center">
+      <vs-button color="primary" type="border" v-on:click="generate" icon="save"
+        >Generate</vs-button
+      >
+    </vs-row>
   </vs-row>
 </template>
 
@@ -37,38 +49,45 @@ export default {
   name: "FormGenData",
   data() {
     return {
-      id: 1,
+      entity: "teacher",
       total: 10,
     };
   },
   methods: {
     generate() {
-      console.log(this.id);
       console.log(this.total);
       /* eslint-disable radix */
-      let id = parseInt(this.id);
       let total = parseInt(this.total);
-      if (isNaN(id) || isNaN(total)) {
-        alert("All inputs are required and must be a number");
+      if (isNaN(total)) {
+        alert("Total required and must be a number");
         return;
       }
       console.log(this.$apollo);
-      let objects = Array.from({ length: total }, (v, i) => ({
-        id: id + i,
+      let objects = Array.from({ length: total }, () => ({
         name: faker.name.firstName() + " " + faker.name.lastName(),
         birthday: faker.date.past(),
       }));
-      this.$apollo.mutate({
-        mutation: GENERATE_DATA,
-        variables: {
-          objects,
-        },
-        update: (cache, { data: { insertTeacher } }) => {
-          // Read the data from our cache for this query.
-          // eslint-disable-next-line
-          console.log(insertTeacher);
-        },
-      });
+      this.$apollo
+        .mutate({
+          mutation: GENERATE_DATA,
+          variables: {
+            objects,
+          },
+          update: (cache, { data: { insertTeacher } }) => {
+            // Read the data from our cache for this query.
+            // eslint-disable-next-line
+            console.log(insertTeacher);
+          },
+        })
+        .then((data) => {
+          console.log("data", data);
+          this.$vs.notify({
+            title: "Saved",
+            text: "affected row: " + this.total + " records",
+            color: "success",
+            icon: "check_box",
+          });
+        });
     },
   },
 };

@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "apollographql.vscode-apollo",
     "octref.vetur",
     "sdras.vue-vscode-snippets",
     "mgmcdermott.vscode-language-babel",

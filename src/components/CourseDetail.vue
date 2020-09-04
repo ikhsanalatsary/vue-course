@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <h1>Course detail</h1>
-    <vs-row vs-justify="center">
+  <fragment>
+    <vs-row vs-justify="center" class="course-row" vs-w="8">
       <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="10">
         <vs-card>
           <div slot="header">
             <h3>
               Flutter: Membuat aplikasi Android dengan Flutter dan Firebase
             </h3>
+          </div>
+          <div slot="media">
+            <img src="https://lusaxweb.github.io/vuesax/card.png" />
           </div>
           <div>
             <span>Integrasi Flutter dengan Firebase realtime database</span>
@@ -60,7 +62,7 @@
         </vs-card>
       </vs-col>
     </vs-row>
-  </div>
+  </fragment>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template>
-  <vs-row vs-justify="center" vs-w="8">
+  <vs-row vs-justify="center" vs-w="10">
     <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6">
-      <vs-card class="cardx" fixedHeight actionable>
+      <vs-card class="cardx left" fixedHeight actionable>
         <div slot="header">
           <h3>Hello world !</h3>
         </div>
@@ -35,7 +35,7 @@
       </vs-card>
     </vs-col>
     <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6">
-      <vs-card class="cardx" fixedHeight actionable>
+      <vs-card class="cardx right" fixedHeight actionable>
         <div slot="header">
           <h3>Hello world !</h3>
         </div>
@@ -83,6 +83,16 @@ export default {
 
 <style scoped>
 .cardx {
-  margin: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.left {
+  margin-right: 15px;
+}
+.right {
+  margin-left: 15px;
+}
+div p {
+  padding-bottom: 12px;
 }
 </style>

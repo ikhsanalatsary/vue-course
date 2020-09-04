@@ -3,15 +3,27 @@
     vs-type="flex"
     vs-justify="center"
     vs-align="center"
-    vs-w="2"
+    vs-w="8"
     class="form-gen"
   >
-    <h2>Generate teacher</h2>
-    <vs-input placeholder="start from id" v-model="id" />
-    <vs-input placeholder="total record to be generated" v-model="total" />
-    <vs-button color="primary" type="border" v-on:click="generate" icon="save"
-      >Generate</vs-button
-    >
+    <vs-row vs-type="flex" vs-justify="center">
+      <h2>Generate teacher</h2>
+    </vs-row>
+    <vs-row vs-type="flex" vs-justify="center">
+      <vs-input label="Entity" placeholder="Entity name" v-model="entity" />
+    </vs-row>
+    <vs-row vs-type="flex" vs-justify="center">
+      <vs-input
+        label="Total"
+        placeholder="total record to be generated"
+        v-model="total"
+      />
+    </vs-row>
+    <vs-row vs-type="flex" vs-justify="center">
+      <vs-button color="primary" type="border" v-on:click="generate" icon="save"
+        >Generate</vs-button
+      >
+    </vs-row>
   </vs-row>
 </template>
 
@@ -20,7 +32,7 @@ export default {
   name: "FormGenData",
   data() {
     return {
-      id: 1,
+      entity: "teachers",
       total: 10,
     };
   },

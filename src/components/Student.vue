@@ -1,52 +1,71 @@
 <template lang="html">
-  <div>
-    <vs-table stripe :data="users">
-      <template #header>
-        <h3>
-          Users
-        </h3>
-      </template>
-      <template #thead>
-        <vs-th>
-          Email
-        </vs-th>
-        <vs-th>
-          Name
-        </vs-th>
-        <vs-th>
-          Website
-        </vs-th>
-        <vs-th>
-          Nro
-        </vs-th>
-      </template>
+  <vs-row vs-justify="center" vs-w="8">
+    <vs-col type="flex" vs-justify="center">
+      <form class="centerx labelx">
+        <vs-input
+          :danger="validationField.name"
+          danger-text="This field is required!"
+          label="Name"
+          placeholder="Student full name"
+          v-model="name"
+        />
+        <vs-input
+          label="DOB"
+          :danger="validationField.dob"
+          danger-text="This field is required!"
+          placeholder="YYYY-MM-DD"
+          v-model="birthday"
+        />
+        <vs-button color="primary" type="border" @click="addStudent"
+          >Save</vs-button
+        >
+      </form>
+    </vs-col>
+    <vs-col>
+      <vs-table stripe :data="users">
+        <template #header>
+          <h3>Users</h3>
+        </template>
+        <template #thead>
+          <vs-th> Email </vs-th>
+          <vs-th> Name </vs-th>
+          <vs-th> Website </vs-th>
+          <vs-th> Nro </vs-th>
+        </template>
 
-      <template v-slot="{ data }">
-        <vs-tr :key="indextr" v-for="(tr, indextr) in data">
-          <vs-td :data="data[indextr].email">
-            {{ data[indextr].email }}
-          </vs-td>
+        <template v-slot="{ data }">
+          <vs-tr :key="indextr" v-for="(tr, indextr) in data">
+            <vs-td :data="data[indextr].email">
+              {{ data[indextr].email }}
+            </vs-td>
 
-          <vs-td :data="data[indextr].username">
-            {{ data[indextr].name }}
-          </vs-td>
+            <vs-td :data="data[indextr].username">
+              {{ data[indextr].name }}
+            </vs-td>
 
-          <vs-td :data="data[indextr].id">
-            {{ data[indextr].website }}
-          </vs-td>
+            <vs-td :data="data[indextr].id">
+              {{ data[indextr].website }}
+            </vs-td>
 
-          <vs-td :data="data[indextr].id">
-            {{ data[indextr].id }}
-          </vs-td>
-        </vs-tr>
-      </template>
-    </vs-table>
-  </div>
+            <vs-td :data="data[indextr].id">
+              {{ data[indextr].id }}
+            </vs-td>
+          </vs-tr>
+        </template>
+      </vs-table>
+    </vs-col>
+  </vs-row>
 </template>
 
 <script>
 export default {
   data: () => ({
+    validationField: {
+      name: false,
+      dob: false,
+    },
+    name: "",
+    birthday: "",
     users: [
       {
         id: 1,
@@ -120,5 +139,15 @@ export default {
       },
     ],
   }),
+  methods: {
+    addStudent() {},
+  },
 };
 </script>
+
+<style scoped>
+.labelx .vs-input {
+  margin: 10px;
+  display: inline-block;
+}
+</style>

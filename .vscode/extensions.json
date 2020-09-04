@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "apollographql.vscode-apollo",
+    "octref.vetur",
+    "sdras.vue-vscode-snippets",
+    "mgmcdermott.vscode-language-babel",
+    "zignd.html-css-class-completion",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "aaron-bond.better-comments",
+    "coenraads.bracket-pair-colorizer-2",
+    "nicholashsiang.vscode-javascript-comment",
+    "chakrounanas.turbo-console-log",
+    "emmanuelbeziat.vscode-great-icons",
+    "jobe451.lorem-whatever"
+  ],
+}

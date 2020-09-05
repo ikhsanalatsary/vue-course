@@ -6,9 +6,9 @@ import "material-icons/iconfont/material-icons.css";
 import App from "./App.vue";
 import router from "./router";
 
-Vue.use(Vuesax, {
-  // options here
-}).use(Plugin);
+Vue
+  .use(Vuesax)
+  .use(Plugin);
 
 Vue.config.productionTip = false;
 

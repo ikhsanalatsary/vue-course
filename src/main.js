@@ -23,7 +23,6 @@ Vue.config.productionTip = false;
 // Create an http link:
 const link = new HttpLink({
   uri: "https://exploregraphql.ikhsan.dev/v1beta1/relay",
-  headers: { "x-hasura-admin-secret": "admin_graphql_ganteng" },
   fetch,
 });
 

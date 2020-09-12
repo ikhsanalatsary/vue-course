@@ -22,7 +22,7 @@ Vue.config.productionTip = false;
 
 // Create an http link:
 const link = new HttpLink({
-  uri: "https://exploregraphql.ikhsan.dev/v1beta1/relay",
+  uri: "https://graphqlworkshop.ikhsan.dev/v1beta1/relay",
   fetch,
 });
 

@@ -23,7 +23,7 @@
                     {{ startDate }}
                   </p>
                   <p>Sampai: {{ endDate }}</p>
-                  <p>Jam: {{ startTime }} - {{ endTime }}</p>
+                  <p>Jam: {{ startTime }} - {{ endTime }} WIB</p>
                 </div>
               </vs-tab>
               <vs-tab label="Lokasi">
@@ -81,6 +81,7 @@
 
 <script>
 import gql from "graphql-tag";
+import { DateTime } from "luxon";
 
 let COURSE_EVENTS_DETAIL = gql`
   query CourseEventDetailQuery($id: ID!, $first: Int = 10, $after: String) {
@@ -155,16 +156,16 @@ export default {
       return this.courseEvent?.course?.description;
     },
     startDate() {
-      return this.$moment(this.courseEvent?.startDate).format("LL");
+      return DateTime.fromSQL(this.courseEvent?.startDate).toFormat("DDDD");
     },
     endDate() {
-      return this.$moment(this.courseEvent?.endDate).format("LL");
+      return DateTime.fromSQL(this.courseEvent?.endDate).toFormat("DDDD");
     },
     startTime() {
-      return this.$moment(this.courseEvent?.startTime, "HH:mm:ss").format("LT");
+      return DateTime.fromSQL(this.courseEvent?.startTime).toFormat('T');
     },
     endTime() {
-      return this.$moment(this.courseEvent?.endTime, "HH:mm:ss").format("LT");
+      return DateTime.fromSQL(this.courseEvent?.endTime).toFormat('T')
     },
     location() {
       return this.courseEvent?.location?.name;

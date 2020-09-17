@@ -15,11 +15,11 @@
     "faker": "^5.1.0",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.11.0",
+    "luxon": "^1.25.0",
     "material-icons": "^0.3.1",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.4",
     "vue-fragment": "^1.5.1",
-    "vue-moment": "^4.1.0",
     "vue-router": "^3.4.3",
     "vuesax": "^3.11.17"
   },

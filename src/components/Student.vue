@@ -22,6 +22,12 @@
       </form>
     </vs-col>
     <vs-col>
+      <vs-progress
+        v-if="$apollo.queries.students.loading"
+        indeterminate
+        color="primary"
+        >primary</vs-progress
+      >
       <vs-table stripe :data="students.edges">
         <template v-slot:header>
           <h3>Student</h3>
@@ -30,12 +36,6 @@
           <vs-th>Name</vs-th>
           <vs-th>Birthday</vs-th>
           <vs-th>Nro</vs-th>
-          <vs-progress
-            v-if="$apollo.queries.students.loading"
-            indeterminate
-            color="primary"
-            >primary</vs-progress
-          >
         </template>
 
         <template v-slot:default="{ data }">

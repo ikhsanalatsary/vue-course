@@ -9,21 +9,18 @@ import "vuesax/dist/vuesax.css"; //Vuesax styles
 import "material-icons/iconfont/material-icons.css";
 import App from "./App.vue";
 import router from "./router";
-const moment = require("moment");
-require("moment/locale/id");
-// console.log("sa", moment.locale());
+import { Settings } from "luxon";
+Settings.defaultLocale = "id";
 
 Vue.use(Vuesax)
   .use(Plugin)
-  .use(VueApollo)
-  .use(require("vue-moment"), { moment });
+  .use(VueApollo);
 
 Vue.config.productionTip = false;
 
 // Create an http link:
 const link = new HttpLink({
-  uri: "https://exploregraphql.ikhsan.dev/v1beta1/relay",
-  headers: { "x-hasura-admin-secret": "admin_graphql_ganteng" },
+  uri: "https://graphqlworkshop.ikhsan.dev/v1beta1/relay",
   fetch,
 });
 
